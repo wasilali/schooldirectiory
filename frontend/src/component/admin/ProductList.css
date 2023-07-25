@@ -17,7 +17,13 @@
     margin: 2rem;
     text-align: center;
   }
-  
+  .MuiDataGrid-root .MuiDataGrid-columnHeaderTitle {
+    overflow: hidden;
+    font-weight: 500;
+    color: #009688;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
   .productListTable {
     background-color: white;
     border: none !important;

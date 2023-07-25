@@ -7,6 +7,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { logout } from '../../actions/userAction';
 import store from '../../store';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 const Navbar = () => {
   const nav=useNavigate()
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -31,6 +32,10 @@ const Navbar = () => {
     alert.success("logout Successfully...")
     setAnchorEl(null);
      
+ }
+ function adminPath() {
+  nav("/admin/dashboard")
+  setAnchorEl(null);
  }
   return (
     <>
@@ -65,6 +70,7 @@ const Navbar = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleUserMenuClose}
                   >
+                    {user&&user.role==="admin" &&<MenuItem onClick={adminPath}><DashboardIcon /> Dashboart</MenuItem>}
                     <MenuItem onClick={gotToPRofile}><AccountBoxIcon /> Profile</MenuItem>
                     <MenuItem onClick={logoutUser}><LogoutIcon /> Logout</MenuItem>
                   </Menu>

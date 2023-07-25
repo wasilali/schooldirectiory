@@ -14,9 +14,8 @@ import MetData from "../layout/MetData";
 import { clearErrors, newProduct } from "../../actions/productAction";
 import Sidebar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import ContactsIcon from '@mui/icons-material/Contacts';
-const NewProduct = () => {
+import YouTubeIcon from '@mui/icons-material/YouTube';
+const NewVideos = () => {
   const dispatch = useDispatch();
   const nav = useNavigate()
   const alert = useAlert();
@@ -92,64 +91,17 @@ const NewProduct = () => {
             encType="multipart/form-data"
             onSubmit={createProductSubmitHandler}
           >
-            <h1>Create School</h1>
+            <h1>Add Youtube video lecture</h1>
 
             <div>
-              <SpellcheckIcon />
+              <YouTubeIcon />
               <input
                 type="text"
-                placeholder="School Name"
+                placeholder="Add video link"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-            </div>
-
-            <div>
-              <DescriptionIcon />
-
-              <textarea
-                placeholder="School Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                cols="30"
-                rows="1"
-              ></textarea>
-            </div>
-
-            <div>
-              <ContactsIcon />
-              <input
-                type="text"
-                placeholder="School Contact"
-                required
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
-            <div>
-              <AddLocationAltIcon />
-              <input
-                type="text"
-                placeholder="School Location"
-                required
-                onChange={(e) => setStock(e.target.value)}
-              />
-            </div>
-
-            <div id="createProductFormFile">
-              <input
-                type="file"
-                name="avatar"
-                accept="image/*"
-                onChange={createProductImagesChange}
-                multiple
-              />
-            </div>
-
-            <div id="createProductFormImage">
-              {imagesPreview.map((image, index) => (
-                <img key={index} src={image} alt="Product Preview" />
-              ))}
             </div>
 
             <Button
@@ -157,7 +109,7 @@ const NewProduct = () => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Add
             </Button>
           </form>
         </div>
@@ -166,4 +118,4 @@ const NewProduct = () => {
   );
 };
 
-export default NewProduct;
+export default NewVideos;

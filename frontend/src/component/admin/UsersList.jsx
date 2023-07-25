@@ -18,6 +18,7 @@ const UsersList = () => {
   const alert = useAlert();
 
   const { error, users } = useSelector((state) => state.allUsers);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const {
     error: deleteError,

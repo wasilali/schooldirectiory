@@ -72,44 +72,31 @@ const Dashboard = () => {
   return (
     <div className='dashboard'>
         <Sidebar/>
-        <div className="dashboardContainer">
-        <Typography component="h1">Dashboard</Typography>
-
-        <div className="dashboardSummary">
-          <div>
-            <p>
-              Total Amount <br /> {totalAmount}
-            </p>
-          </div>
-          <div className="dashboardSummaryBox2">
-            <Link to="/admin/products">
-              <p>Product</p>
-              <p>{products&&products.length}</p>
-            </Link>
-            <Link to="/admin/orders">
-              <p>Orders</p>
-              <p>{orders&&orders.length}</p>
-            </Link>
-            <Link to="/admin/users">
-              <p>Users</p>
-              <p>{users&&users.length}</p>
-            </Link>
-            <Link to="/admin/reports">
-              <p>Reports</p>
-              <p>{reports&&reports.length}</p>
-            </Link>
-          </div>
-        </div>
-      
-        <div className="lineChart">
-         <Line data={lineState} />
-        </div>
-
-        <div className="doughnutChart">
-          <Doughnut data={doughnutState} />
-        </div>
-
+        <div className="grid grid-cols-2 gap-5 p-16">
+      {/* Users */}
+      <div className="bg-blue-500 p-4 h-[10rem] text-white text-center">
+        <h2 className="text-xl font-bold">Number of Users</h2>
+        <p className="text-4xl mt-5">{users&&users.length || 'Loading...'}</p>
       </div>
+
+      {/* Schools */}
+      <div className="bg-green-500 h-[10rem] p-4 text-white text-center">
+        <h2 className="text-xl font-bold">Number of Schools</h2>
+        <p className="text-4xl mt-5">{0 || 'Loading...'}</p>
+      </div>
+
+      {/* News */}
+      <div className="bg-yellow-500 h-[10rem] p-4 text-white text-center">
+        <h2 className="text-xl font-bold">Number of News</h2>
+        <p className="text-4xl mt-5">{0 || 'Loading...'}</p>
+      </div>
+
+      {/* Videos */}
+      <div className="bg-red-500 h-[10rem] p-4 text-white text-center">
+        <h2 className="text-xl font-bold">Number of Videos</h2>
+        <p className="text-4xl mt-5">{0 || 'Loading...'}</p>
+      </div>
+    </div>
     </div>
   )
 }

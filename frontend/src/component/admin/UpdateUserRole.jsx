@@ -29,7 +29,6 @@ const UpdateUserRole = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-
   const userId = params.id;
 
   useEffect(() => {
@@ -104,7 +103,9 @@ const UpdateUserRole = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+              <div>
 
+      </div>
               <div>
                 <VerifiedUserIcon />
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
@@ -113,7 +114,6 @@ const UpdateUserRole = () => {
                   <option value="user">User</option>
                 </select>
               </div>
-
               <Button
                 id="createProductBtn"
                 type="submit"

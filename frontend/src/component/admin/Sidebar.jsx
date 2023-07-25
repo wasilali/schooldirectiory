@@ -1,18 +1,16 @@
 import React from "react";
 import "./sidebar.css";
-// import logo from "../../images/camera 4.jpg";
 import { Link } from "react-router-dom";
-import { TreeView, TreeItem } from "@material-ui/lab";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import PostAddIcon from "@material-ui/icons/PostAdd";
 import AddIcon from "@material-ui/icons/Add";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
+import SchoolIcon from '@mui/icons-material/School';
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
-import RateReviewIcon from "@material-ui/icons/RateReview";
-import ReportIcon from '@material-ui/icons/Report';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import { useSelector } from "react-redux";
 const Sidebar = () => {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   return (
     <div className="sidebar">
 
@@ -21,45 +19,54 @@ const Sidebar = () => {
           <DashboardIcon /> Dashboard
         </p>
       </Link>
-       <Link to={""}>
-        <TreeView
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ImportExportIcon />}
-        >
-          <TreeItem nodeId="1" label="Products">
-            <Link to="/admin/products">
-              <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
+      <Link to="/admin/product">
+      <p>
+              <AddIcon />
+              Add-School
+              </p>
             </Link>
 
-            <Link to="/admin/product">
-              <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
-            </Link>
-          </TreeItem>
-        </TreeView>
-      </Link>
-      <Link to="/admin/orders">
-        <p>
-          <ListAltIcon />
-          Orders
-        </p>
-      </Link>
-      <Link to="/admin/users">
+            <Link to="/admin/products">
+              <p>
+              <SchoolIcon />
+              Schools
+              </p>
+              </Link>
+             {user&&user.allowUser&&user.allowUser===true&& <Link to="/admin/users">
         <p>
           <PeopleIcon /> Users
         </p>
+      </Link>}
+      <Link to="/admin/users">
+        <p>
+          <ListAltIcon />
+          News-Update List
+        </p>
       </Link>
-      <Link to="/admin/reviews">
+      <Link to="/admin/create/news">
+      <p>
+              <AddIcon />
+              News
+              </p>
+            </Link>
+      <Link to="/admin/users">
         <p>
-          <RateReviewIcon />
-          Reviews
+          <NewspaperIcon />
+          News
         </p>
       </Link> 
-      <Link to="/admin/reports">
+     {user&&user.allowUser&&user.allowUser===true&& <Link to="/admin/create/videos">
+      <p>
+              <AddIcon />
+              Add-video
+              </p>
+            </Link>}
+    {user&&user.allowUser&&user.allowUser===true&& <Link to="/admin/users">
         <p>
-          <ReportIcon />
-          Reports
+          <YouTubeIcon />
+          list videos
         </p>
-      </Link> 
+      </Link> }
     </div>
   );
 };

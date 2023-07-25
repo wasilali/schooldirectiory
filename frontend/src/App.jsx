@@ -21,6 +21,14 @@ import ProctedRout from "./components/ProctedRout/ProctedRout";
 import Profile from "./component/User/Profile";
 import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
+import Dashboard from "./component/admin/Dashboard";
+import ProductList from "./component/admin/ProductList";
+import NewProduct from "./component/admin/NewProduct";
+import UpdateProduct from "./component/admin/UpdateProduct";
+import UsersList from "./component/admin/UsersList";
+import UpdateUserRole from "./component/admin/UpdateUserRole";
+import NewNews from "./component/admin/NewNews.jsx";
+import NewVideos from "./component/admin/NewVideos.jsx";
 const App = () => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -52,6 +60,31 @@ const App = () => {
           <Route path="/me/update" element={<UpdateProfile />} />
                 <Route path="/password/update" element={<UpdatePassword />} />
           </Route>
+          <Route
+                element={
+                  <ProctedRout
+                    isAdmin={true}
+                    isAunthenticated={isAuthenticated}
+                  />
+                }
+              >
+                <Route path="/admin/create/news" element={<NewNews/>}></Route>
+                <Route path="/admin/create/videos" element={<NewVideos/>}></Route>
+                <Route path="/admin/dashboard" element={<Dashboard />}></Route>
+                <Route path="/admin/products" element={<ProductList />}></Route>
+                <Route path="/admin/product" element={<NewProduct />}></Route>
+                <Route
+                  path="/admin/product/:id"
+                  element={<UpdateProduct />}
+                ></Route>
+
+                /admin/user/
+                <Route path="/admin/users" element={user&&user.allowUser&&user.allowUser===true?<UsersList />:<Dashboard/>}></Route>
+                <Route
+                  path="/admin/user/:id"
+                  element={user&&user.allowUser&&user.allowUser===true?<UpdateUserRole />:<Dashboard/>}
+                ></Route>
+              </Route>
         </Routes>
         <Footer/>
       </BrowserRouter>

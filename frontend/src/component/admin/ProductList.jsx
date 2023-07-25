@@ -126,7 +126,7 @@ const nav = useNavigate()
       <div className="dashboard">
         <Sidebar/>
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL PRODUCTS</h1>
+          <h1 id="productListHeading">ALL schools</h1>
 
           <DataGrid
             rows={rows}

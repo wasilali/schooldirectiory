@@ -14,9 +14,8 @@ import MetData from "../layout/MetData";
 import { clearErrors, newProduct } from "../../actions/productAction";
 import Sidebar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import ContactsIcon from '@mui/icons-material/Contacts';
-const NewProduct = () => {
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+const NewNews = () => {
   const dispatch = useDispatch();
   const nav = useNavigate()
   const alert = useAlert();
@@ -92,7 +91,7 @@ const NewProduct = () => {
             encType="multipart/form-data"
             onSubmit={createProductSubmitHandler}
           >
-            <h1>Create School</h1>
+            <h1>Add News or Event</h1>
 
             <div>
               <SpellcheckIcon />
@@ -116,26 +115,26 @@ const NewProduct = () => {
                 rows="1"
               ></textarea>
             </div>
-
             <div>
-              <ContactsIcon />
+              <CalendarMonthIcon />
               <input
                 type="text"
-                placeholder="School Contact"
+                placeholder="From"
                 required
-                onChange={(e) => setPrice(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
-              <AddLocationAltIcon />
+              <CalendarMonthIcon />
               <input
                 type="text"
-                placeholder="School Location"
+                placeholder="to"
                 required
-                onChange={(e) => setStock(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
-
             <div id="createProductFormFile">
               <input
                 type="file"
@@ -145,7 +144,6 @@ const NewProduct = () => {
                 multiple
               />
             </div>
-
             <div id="createProductFormImage">
               {imagesPreview.map((image, index) => (
                 <img key={index} src={image} alt="Product Preview" />
@@ -166,4 +164,4 @@ const NewProduct = () => {
   );
 };
 
-export default NewProduct;
+export default NewNews;
