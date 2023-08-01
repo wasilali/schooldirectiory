@@ -7,43 +7,46 @@ import IconButton from '@mui/material/IconButton';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolDetailsDialog from './SchoolDetailsDialog.jsx';
-const SchoolCard = () => {
+const SchoolCard = ({items}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [idd, setIdd] = useState();
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
+    setIdd(items._id)
+
   };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
-  const [value, setValue] = useState(5);
+  const [value, setValue] = useState(items.ratings);
   return (
     <>
       <div className="image-cardd">
         <div className="image-containerr">
-          <img src={img} alt="Image" />
+          <img src={items.images&&items.images[0].url} alt="Image" />
           <span className="view-icon">
-            58 <VisibilityIcon />
+            {items.views.length} <VisibilityIcon />
           </span>
         </div>
         <div className="card-contentt">
           <h2 className="font-bold">
-            <BadgeIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-light">Usama Bin Zaid School</span>
+            <BadgeIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-light">{items.name}</span>
           </h2>
 
           <p className="font-bold">
-            <LocationOnIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-[100] text-[.8rem]">Faisalabad Pakistan</span>
+            <LocationOnIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-[100] text-[.8rem]">{items.location}</span>
           </p>
 
           <div className="flex justify-between mt-2">
             <div className="flex flex-row">
             <Rating name="read-only" value={value} readOnly />
-            <span className=" mt-1 ml-1 text-[#009688]">{"(5)"}</span>
+            <span className=" mt-1 ml-1 text-[#009688]">{items.numberOfReviews}</span>
 
             </div>
             <IconButton onClick={handleOpenDialog} color="info"><LaunchIcon/></IconButton>
-            <SchoolDetailsDialog open={dialogOpen} onClose={handleCloseDialog} />
+            <SchoolDetailsDialog items={items} idd={items._id} open={dialogOpen} onClose={handleCloseDialog} />
           </div>
         </div>
       </div>

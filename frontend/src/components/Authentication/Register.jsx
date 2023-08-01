@@ -154,6 +154,7 @@ if(isAuthenticated===true){
                   placeholder="Password"
                   autoComplete="current-password"
                   required
+                  minLength={8}
                   className="block w-full rounded-md border-0 py-2 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <button
@@ -197,7 +198,7 @@ if(isAuthenticated===true){
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-[#009688]"
                 >
-                  Password
+                 Reenter Password
                 </label>
               </div>
               <div className="mt-2 relative">

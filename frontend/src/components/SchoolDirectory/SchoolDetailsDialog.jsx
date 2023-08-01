@@ -8,9 +8,37 @@ import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 // import LaunchIcon from '@mui/icons-material/Launch';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Rating from '@mui/material/Rating';
-const SchoolDetailsDialog =  ({ open, onClose }) => {
+import {useDispatch,useSelector} from 'react-redux';
+import {useAlert} from 'react-alert'
+import { getProductDetails,clearErrors, newReview } from '../../actions/productAction'
+import { NEW_REVIEW_RESET } from '../../constants/productConstants';
+const SchoolDetailsDialog =  ({ items, idd, open, onClose }) => {
+  console.log("itttt",items);
+  const alert=useAlert()
+  
+  const dispatch=useDispatch()
+ 
+  const {product,loading,error}=useSelector(state=>state.productDetails)
+  const {success,error:reviewError}=useSelector(state=>state.newReview)
+  useEffect(() => {
+    if(error){
+      alert.error(error)
+      dispatch(clearErrors())
+    }
+    if(reviewError){
+      alert.error(reviewError)
+      dispatch(clearErrors())
+    }
+    
+    if (success) {
+      alert.success("review submit successFully kindly refresh first")
+      dispatch({type:NEW_REVIEW_RESET})
+    }
+ dispatch(getProductDetails(idd))
+  }, [dispatch,error,success,reviewError])
+  console.log("product",product);
   const [reviewOpen,setReviewOpen]=useState(false)
 const handleCloseAndReviewBox=()=>{
   setReviewOpen(true)
@@ -21,10 +49,9 @@ const handleReviewClose=()=>{
   setReviewOpen(false)
 }
 
-const [rating, setRating] = useState(0);
+const [rating, setRating] = useState();
 const [reviewText, setReviewText] = useState('');
 
-console.log(rating);
 
 const handleRatingChange = (event, value) => {
   setRating(value);
@@ -34,16 +61,26 @@ const handleReviewChange = (event) => {
   setReviewText(event.target.value);
 };
 
-const handleReviewSubmit = (event) => {
-  event.preventDefault();
-  // Process review submission
-  console.log('Rating:', rating);
-  console.log('Review Text:', reviewText);
-  // Reset form fields
-  setRating(0);
-  setReviewText('');
-};
+const reviewSubmitHandler= ()=>{
+  const myForm = new FormData();
 
+  myForm.set("rating", rating);
+  myForm.set("comment", reviewText);
+  myForm.set("productId", idd);
+
+  dispatch(newReview(myForm))
+
+
+  setReviewOpen(false)
+}
+const handleEmailer=()=>{
+    const recipient = items&&items.user&&items.user.email;
+    const subject = '';
+    const body = '';
+
+    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoLink);
+}
 
   return (
     <>
@@ -52,25 +89,25 @@ const handleReviewSubmit = (event) => {
       <CloseIcon onClick={handleCloseAndReviewBox} />
         </IconButton></DialogTitle>
       <DialogContent className="flex flex-col gap-4 px-6">
-        <Slider/>
+        <Slider images={product&&product.images&&product.images} />
         <h2 className="font-bold">
-            <BadgeIcon style={{color:"#009688",fontSize:"1.5rem",marginTop:'-.5rem'}}/> <span className="font-bold">Usama Bin Zaid School</span>
+            <BadgeIcon style={{color:"#009688",fontSize:"1.5rem",marginTop:'-.5rem'}}/> <span className="font-bold">{product&&product.name}</span>
           </h2>
 <div className='font-bold text-lg'>
-Description: <span className='font-light text-[1rem]'> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga, consectetur, animi nemo aliquid, mollitia amet dolorem alias officiis incidunt nihil optio earum eaque? Minus ex incidunt aut tenetur facere architecto.</span>
+Description: <span className='font-light text-[1rem]'> {product&&product.discription}</span>
 </div>
 <div className='  justify-between'>
         <p className="font-bold">
-            <LocationOnIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-[100] text-[.8rem]">Faisalabad Pakistan</span>
+            <LocationOnIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-[100] text-[.8rem]">{product&&product.location}</span>
           </p>
 
           <p className="font-bold">
-            <AddIcCallIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-[100] text-[.8rem]">03-0166178022</span>
+            <AddIcCallIcon style={{color:"#009688",fontSize:"1rem"}}/> <span className="font-[100] text-[.8rem]">{product&&product.contact}</span>
           </p>
 </div>
       </DialogContent>
       <DialogActions>
-        <Button color='success'>Contact through Mail</Button>
+        <Button onClick={handleEmailer} color='success'>Contact through Mail</Button>
         <Button onClick={handleCloseAndReviewBox} color='warning'>Cancel</Button>
       </DialogActions>
     </Dialog>
@@ -80,7 +117,7 @@ Description: <span className='font-light text-[1rem]'> Lorem ipsum dolor sit, am
         </IconButton></DialogTitle>
       <DialogContent className="">
       <div className=" px-6">
-      <form onSubmit={handleReviewSubmit}>
+      <form onSubmit={reviewSubmitHandler}>
         <div className="mb-4">
           <label className="block text-[#4d847e] text-sm font-bold mb-2" htmlFor="rating">
             Rating
@@ -116,10 +153,6 @@ Description: <span className='font-light text-[1rem]'> Lorem ipsum dolor sit, am
     </div>
 
       </DialogContent>
-      <DialogActions>
-        <Button color='success'>Submit Riview</Button>
-        <Button color='warning'>Cancel</Button>
-      </DialogActions>
     </Dialog>
     </>
   );

@@ -8,6 +8,8 @@ const cloudinary = require("cloudinary");
 
 //CREATE PRODUCTS --admin products--
 exports.createProduct = catchAsyncError(async (req,res,next)=>{
+
+  
     let images = [];
 
     if (typeof req.body.images === "string") {
@@ -43,27 +45,12 @@ exports.createProduct = catchAsyncError(async (req,res,next)=>{
 
 
 exports.getAllProducts=catchAsyncError(async(req,res)=>{
-    
-    const resultPerPage=8;
-    const productsCount=await Product.countDocuments();
-   const apiFeacher=new ApiFeachers(Product.find(),req.query).search()
-   .filter();
 
-   let products = await apiFeacher.query.clone();
-
-   let filteredProductsCount = products.length;
- 
-   apiFeacher.pagination(resultPerPage);
- 
-   products = await apiFeacher.query;
- 
+   let products = await Product.find()
 
     res.status(200).json({
         success:true,
         products,
-        productsCount,
-        resultPerPage,
-        filteredProductsCount,
     });
 });
 
@@ -83,12 +70,18 @@ const products= await Product.find()
 
 exports.getProductDetails=catchAsyncError(async(req,res,next)=>{
 
-    let product=await Product.findById(req.params.id);
+    let product=await Product.findById(req.params.id).populate('user')
     const productsCount=await Product.countDocuments();
 
     if (!product) {
         return next(new ErrorHandling("Product not Found",404))
     }
+
+     if (!product.views.includes(req.user.id)) {
+    product.views.push(req.user.id);
+
+    await product.save();
+  }
 
     res.status(200).json({
         success:true,
@@ -98,6 +91,24 @@ exports.getProductDetails=catchAsyncError(async(req,res,next)=>{
 
 })
 
+//get product Details,...
+
+exports.getProductDetail=catchAsyncError(async(req,res,next)=>{
+
+  let product=await Product.findById(req.params.id).populate('user')
+  const productsCount=await Product.countDocuments();
+
+  if (!product) {
+      return next(new ErrorHandling("Product not Found",404))
+  }
+
+  res.status(200).json({
+      success:true,
+      product,
+      productsCount,
+  })
+
+})
 // Update Product ==Admin
 
 exports.updateProduct=catchAsyncError(async(req,res,next)=>{

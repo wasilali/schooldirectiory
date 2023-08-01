@@ -82,7 +82,7 @@ const Dashboard = () => {
       {/* Schools */}
       <div className="bg-green-500 h-[10rem] p-4 text-white text-center">
         <h2 className="text-xl font-bold">Number of Schools</h2>
-        <p className="text-4xl mt-5">{0 || 'Loading...'}</p>
+        <p className="text-4xl mt-5">{products&&products.length || 'Loading...'}</p>
       </div>
 
       {/* News */}

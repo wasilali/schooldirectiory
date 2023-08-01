@@ -65,16 +65,16 @@ const nav = useNavigate()
       flex: 1,
     },
     {
-      field: "stock",
-      headerName: "Stock",
+      field: "contact",
+      headerName: "contact",
       type: "number",
       minWidth: 150,
       flex: 0.3,
     },
 
     {
-      field: "price",
-      headerName: "Price",
+      field: "location",
+      headerName: "location",
       type: "number",
       minWidth: 270,
       flex: 0.5,
@@ -113,8 +113,8 @@ const nav = useNavigate()
     products.forEach((item) => {
       rows.push({
         id: item._id,
-        stock: item.stock,
-        price: item.price,
+        contact: item.contact,
+        location: item.location,
         name: item.name,
       });
     });

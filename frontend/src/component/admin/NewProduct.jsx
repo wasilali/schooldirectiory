@@ -16,6 +16,7 @@ import Sidebar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import ContactsIcon from '@mui/icons-material/Contacts';
+
 const NewProduct = () => {
   const dispatch = useDispatch();
   const nav = useNavigate()
@@ -24,10 +25,9 @@ const NewProduct = () => {
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+  const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
+  const [location, setLocation] = useState("");
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
@@ -50,10 +50,9 @@ const NewProduct = () => {
     const myForm = new FormData();
 
     myForm.set("name", name);
-    myForm.set("price", price);
+    myForm.set("contact", contact);
     myForm.set("discription", description);
-    myForm.set("category", category);
-    myForm.set("stock", Stock);
+    myForm.set("location", location);
 
     images.forEach((image) => {
       myForm.append("images", image);
@@ -123,7 +122,7 @@ const NewProduct = () => {
                 type="text"
                 placeholder="School Contact"
                 required
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setContact(e.target.value)}
               />
             </div>
             <div>
@@ -132,7 +131,7 @@ const NewProduct = () => {
                 type="text"
                 placeholder="School Location"
                 required
-                onChange={(e) => setStock(e.target.value)}
+                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 

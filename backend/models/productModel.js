@@ -10,10 +10,9 @@ const productSchema=new mongoose.Schema({
         type:String,
         required:[true,"Please Enter product discription"],
     },
-    price:{
-        type:Number,
-        required:[true,"Please Enter product price"],
-        maxLength:[8,"Price cannotExceed"],
+    contact:{
+        type:String,
+        required:[true,"Please Enter schools Contact"],
 
     },
     ratings:{
@@ -32,16 +31,11 @@ const productSchema=new mongoose.Schema({
         }
     }
 ],
-category:{
+location:{
     type:String,
-    required:[true,"Please Enter product category"],
+    required:[true,"Please Enter location"],
 },
-stock:{
-    type:Number,
-    required:[true,"please enter stock"],
-    maxLength:[4,"Stock cannot exceed "],  //4 means stock 10000 tk ja skta ha,...
-    default:1,
-},
+
 numberOfReviews:{
     type:Number,
     default:0
@@ -82,7 +76,12 @@ required:true,
 createdAt:{
     type:Date,
 default:Date.now,
-}
+},views:[
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ]
 });
 
 module.exports= mongoose.model("Product",productSchema);

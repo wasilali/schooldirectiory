@@ -246,6 +246,7 @@ exports.updateUserRoles = catchAsyncError(async(req,res,next)=>{
         name:req.body.name,
         email:req.body.email,
         role: req.body.role,
+        allowUser:req.body.allowUser
     };
 
     const user= await User.findByIdAndUpdate(req.params.id, newUserData,{

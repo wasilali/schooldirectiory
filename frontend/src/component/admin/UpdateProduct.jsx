@@ -14,7 +14,8 @@ import MetData from "../layout/MetData";
 import { clearErrors,getProductDetails, updateProduct } from "../../actions/productAction";
 import Sidebar from "./Sidebar";
 import { UPDATE_PRODUCT_RESET } from "../../constants/productConstants";
-
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import ContactsIcon from '@mui/icons-material/Contacts';
 const UpdateProduct = () => {
   const dispatch = useDispatch();
   const params=useParams();
@@ -25,23 +26,12 @@ const UpdateProduct = () => {
   const {product,error}=useSelector(state=>state.productDetails)
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+  const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
+  const [location, setLocation] = useState();
   const [images, setImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
-
-  const categories = [
-    "Laptop",
-    "Mobiles",
-    "Shoes",
-    "Watches",
-    "Clothes",
-    "Camera",
-    "mashine1",
-  ];
 const id=params.id
   useEffect(() => {
     if (product&&product._id !==id) {
@@ -49,9 +39,8 @@ const id=params.id
     } else {
       setName(product.name);
       setDescription(product.discription);
-      setPrice(product.price);
-      setCategory(product.category);
-      setStock(product.stock);
+      setContact(product.contact);
+      setLocation(product.location);
       setOldImages(product.images);
     }
     if (error) {
@@ -84,10 +73,9 @@ const id=params.id
     const myForm = new FormData();
 
     myForm.set("name", name);
-    myForm.set("price", price);
+    myForm.set("contact", contact);
     myForm.set("discription", description);
-    myForm.set("category", category);
-    myForm.set("stock", Stock);
+    myForm.set("location", location);
 
     images.forEach((image) => {
       myForm.append("images", image);
@@ -127,26 +115,16 @@ const id=params.id
             encType="multipart/form-data"
             onSubmit={updateProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1>Create School</h1>
 
             <div>
               <SpellcheckIcon />
               <input
                 type="text"
-                placeholder="Product Name"
+                placeholder="School Name"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              <AttachMoneyIcon />
-              <input
-                type="number"
-                placeholder="Price"
-                required
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
 
@@ -154,7 +132,7 @@ const id=params.id
               <DescriptionIcon />
 
               <textarea
-                placeholder="Product Description"
+                placeholder="School Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
@@ -163,25 +141,21 @@ const id=params.id
             </div>
 
             <div>
-              <AccountTreeIcon />
-              <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                <option value="">Choose Category</option>
-                {categories.map((cate) => (
-                  <option key={cate} value={cate}>
-                    {cate}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <StorageIcon />
+              <ContactsIcon />
               <input
-                type="number"
-                placeholder="Stock"
+                type="text"
+                placeholder="School Contact"
                 required
-                value={Stock}
-                onChange={(e) => setStock(e.target.value)}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </div>
+            <div>
+              <AddLocationAltIcon />
+              <input
+                type="text"
+                placeholder="School Location"
+                required
+                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 
