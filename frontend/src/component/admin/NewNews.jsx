@@ -4,31 +4,28 @@ import { useSelector, useDispatch } from "react-redux";
 // import { clearErrors, createProduct } from "../../actions/productAction";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import DescriptionIcon from "@material-ui/icons/Description";
-import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import { useNavigate } from "react-router-dom";
 import MetData from "../layout/MetData";
-import { clearErrors, newProduct } from "../../actions/productAction";
+import { clearErrors, createNews } from "../../actions/newsAction";
 import Sidebar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import Loading from "../layout/loading/Loader";
 const NewNews = () => {
   const dispatch = useDispatch();
   const nav = useNavigate()
   const alert = useAlert();
 
-  const { loading, error, success } = useSelector((state) => state.newProduct);
+  const { loading, error,success } = useSelector((state) => state.newNews);
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
-  const [images, setImages] = useState([]);
-  const [imagesPreview, setImagesPreview] = useState([]);
+  const [to, setTo] = useState("");
+  const [from, setFrom] = useState("");
+  const [avatar, setImages] = useState("");
+  const [imagesPreview, setImagesPreview] = useState("");
 
   useEffect(() => {
     if (error) {
@@ -49,39 +46,32 @@ const NewNews = () => {
     const myForm = new FormData();
 
     myForm.set("name", name);
-    myForm.set("price", price);
-    myForm.set("discription", description);
-    myForm.set("category", category);
-    myForm.set("stock", Stock);
+    myForm.set("to", to);
+    myForm.set("description", description);
+    myForm.set("from", from);
+    myForm.set("avatar", avatar);
 
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
-    dispatch(newProduct(myForm));
+    dispatch(createNews(myForm));
   };
 
-  const createProductImagesChange = (e) => {
-    const files = Array.from(e.target.files);
+  const registerDataChange=(e)=>{
+    const reader=new FileReader()
+    reader.onload=()=>{
+    if(reader.readyState===2){
+      setImagesPreview(reader.result)
+        setImages(reader.result)
+    }
+    }
+    const file=e.target.files[0]
+    
+    reader.readAsDataURL(file)
 
-    setImages([]);
-    setImagesPreview([]);
-
-    files.forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((old) => [...old, reader.result]);
-          setImages((old) => [...old, reader.result]);
-        }
-      };
-
-      reader.readAsDataURL(file);
-    });
-  };
+    }
 
   return (
-    <Fragment>
+    <>
+    {
+      loading?<Loading/>:<Fragment>
       <MetData title="Create Product" />
       <div className="dashboard">
         <Sidebar/>
@@ -116,39 +106,36 @@ const NewNews = () => {
               ></textarea>
             </div>
             <div>
-              <CalendarMonthIcon />
-              <input
-                type="text"
-                placeholder="From"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div>
-              <CalendarMonthIcon />
-              <input
-                type="text"
-                placeholder="to"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+        <CalendarMonthIcon />
+        <input
+          selected={to}
+          onChange={(e)=>setTo(e.target.value)}
+          placeholderText="From"
+          type="date"
+          required
+        />
+      </div>
+      <div>
+        <CalendarMonthIcon />
+        <input
+          selected={from}
+          onChange={e=>setFrom(e.target.value)}
+          placeholderText="To"
+          type="date"
+          required
+        />
+      </div>
             <div id="createProductFormFile">
               <input
                 type="file"
                 name="avatar"
                 accept="image/*"
-                onChange={createProductImagesChange}
-                multiple
+                onChange={registerDataChange}
               />
             </div>
-            <div id="createProductFormImage">
-              {imagesPreview.map((image, index) => (
-                <img key={index} src={image} alt="Product Preview" />
-              ))}
-            </div>
+            {imagesPreview&&<div id="createProductFormImage">
+                <img src={imagesPreview} alt="Product Preview" />
+            </div>}
 
             <Button
               id="createProductBtn"
@@ -161,6 +148,9 @@ const NewNews = () => {
         </div>
       </div>
     </Fragment>
+    }
+    </>
+    
   );
 };
 

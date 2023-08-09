@@ -48,23 +48,8 @@ export default function VerticalTabs() {
 
   return (
     <>
-          <div className="background-animation">
-        <div className="overlayy"></div>
-        <div className="search-containerr py-10">
-          <h1 className="text-[2rem] text-[yellow] font-[700] my-5">
-            {" "}
-            {"Search for resources"}
-          </h1>
-          <p className="text-[1rem] text-[white] font-[100] my-5">
-          Access a wide range of curated content and support your learning journey with ease.
-          </p>
-          <input className="form-control" type="text" placeholder="Search" />
-          <button className=" bg-primary text-white hover:bg-secondary">
-            Search
-          </button>
-        </div>
-      </div>
-      <h1 className=" text-center text-primary md:text-[2rem] text-[2rem] font-bold my-[2rem]">
+
+      <h1 className=" text-center text-primary md:text-[2rem] text-[2rem] font-bold py-2">
           {"Resourcess for class 1"}
         </h1>
       <Box

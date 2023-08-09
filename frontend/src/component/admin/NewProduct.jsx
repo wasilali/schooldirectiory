@@ -8,23 +8,24 @@ import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import DescriptionIcon from "@material-ui/icons/Description";
 import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from "react-router-dom";
 import MetData from "../layout/MetData";
 import { clearErrors, newProduct } from "../../actions/productAction";
 import Sidebar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import ContactsIcon from '@mui/icons-material/Contacts';
+import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
+import ContactsIcon from "@mui/icons-material/Contacts";
 
 const NewProduct = () => {
   const dispatch = useDispatch();
-  const nav = useNavigate()
+  const nav = useNavigate();
   const alert = useAlert();
 
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -50,6 +51,7 @@ const NewProduct = () => {
     const myForm = new FormData();
 
     myForm.set("name", name);
+    myForm.set("email", email);
     myForm.set("contact", contact);
     myForm.set("discription", description);
     myForm.set("location", location);
@@ -84,7 +86,7 @@ const NewProduct = () => {
     <Fragment>
       <MetData title="Create Product" />
       <div className="dashboard">
-        <Sidebar/>
+        <Sidebar />
         <div className="newProductContainer">
           <form
             className="createProductForm"
@@ -101,6 +103,16 @@ const NewProduct = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div>
+              <EmailIcon />
+              <input
+                type="email"
+                placeholder="School Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 

@@ -74,8 +74,8 @@ const reviewSubmitHandler= ()=>{
   setReviewOpen(false)
 }
 const handleEmailer=()=>{
-    const recipient = items&&items.user&&items.user.email;
-    const subject = '';
+    const recipient = product&&product.email&&product.email;
+    const subject = `Send your Information to ${product&&items.name}`;
     const body = '';
 
     const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

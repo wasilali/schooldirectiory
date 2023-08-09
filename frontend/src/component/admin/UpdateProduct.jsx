@@ -54,7 +54,7 @@ const id=params.id
       }
   
       if (isUpdated) {
-        alert.success("Product Updated Successfully");
+        alert.success("School Updated Successfully");
         nav("/admin/products");
         dispatch({ type: UPDATE_PRODUCT_RESET });
       }
