@@ -29,6 +29,7 @@ const UpdateUserRole = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [allowUser, setAllowUser] = useState(false);
   const userId = params.id;
 
   useEffect(() => {
@@ -38,6 +39,8 @@ const UpdateUserRole = () => {
       setName(user.name);
       setEmail(user.email);
       setRole(user.role);
+      setAllowUser(user.allowUser&&user.allowUser);
+
     }
     if (error) {
       alert.error(error);
@@ -64,10 +67,13 @@ const UpdateUserRole = () => {
     myForm.set("name", name);
     myForm.set("email", email);
     myForm.set("role", role);
+    myForm.set("allowUser", allowUser);
 
     dispatch(updateUser(userId,myForm));
   };
-
+  const handleCheckboxChange = () => {
+    setAllowUser(!allowUser);
+  };
   return (
     <Fragment>
       <MetData title="Update User" />
@@ -104,8 +110,15 @@ const UpdateUserRole = () => {
                 />
               </div>
               <div>
-
-      </div>
+      <label>
+        <input
+          type="checkbox"
+          checked={allowUser}
+          onChange={handleCheckboxChange}
+        />
+        Allow Super-Admin;
+      </label>
+    </div>
               <div>
                 <VerifiedUserIcon />
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
@@ -114,6 +127,7 @@ const UpdateUserRole = () => {
                   <option value="user">User</option>
                 </select>
               </div>
+
               <Button
                 id="createProductBtn"
                 type="submit"

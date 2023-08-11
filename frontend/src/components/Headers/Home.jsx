@@ -1,6 +1,9 @@
 import img1 from '../../image/99708938.jpg'
 import img2 from '../../image/sharAli.jpeg'
-import img3 from '../../image/image (2).jpg'
+import img3 from '../../image/Arslan.jpeg'
+import img4 from '../../image/BhaiJan.jpeg'
+import img5 from '../../image/Moneeb.jpeg'
+import img6 from '../../image/WhatsApp Image 2023-08-11 at 11.39.10 AM.jpeg'
 import {Link} from "react-router-dom"
 const Home = () => {
   return (
@@ -20,20 +23,20 @@ const Home = () => {
         <h2 className="text-center text-4xl font-bold mb-[5rem] mt-[5rem] text-[#009688]">Our School Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="icon-card bg-hero-pattern bg-cover bg-no-repeat bg-center z-10 h-[60vh] service-card bg-white rounded-md shadow-md p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052]">School Directory</h3>
+            <h3 className="text-xl font-semibold mt-[5rem] text-[#002052] ">School Directory</h3>
             <p className="text-gray-900 text-center -mt-12 ">You can find amaizing Schools hare</p>
-            <Link to={"/school-directory"} className="bg-[#009688] p-2 rounded text-center -mt-12 ">watch schools</Link>
+            <Link to={"/school-directory"} className="bg-[#009688] p-2 rounded text-center -mt-12 text-white ">watch schools</Link>
 
           </div>
           <div className="icon-card bg-hero-pattern bg-cover bg-no-repeat bg-center h-[60vh] z-10 service-card bg-white rounded-md shadow-md p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052] ">Education Resource</h3>
+            <h3 className="text-xl font-semibold mt-[5rem] text-[#002052]  ">Education Resource</h3>
             <p className=" text-center -mt-12">Find amaizing Education Videos</p>
-            <Link to={"/educational-resources"} className="bg-[#009688] p-2 rounded text-center -mt-12 ">watch Videos</Link>
+            <Link to={"/educational-resources"} className="bg-[#009688] p-2 rounded text-center -mt-12 text-white ">watch Videos</Link>
           </div>
           <div className="icon-card bg-hero-pattern bg-cover bg-no-repeat bg-center h-[60vh] z-10 service-card bg-white rounded-md shadow-md p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052] ">News and Events</h3>
+            <h3 className="text-xl font-semibold mt-[5rem] text-[#002052]  ">News and Events</h3>
             <p className=" text-center -mt-12">Find News Of Famous Schools</p>
-            <Link to={"/news-and-updates"} className="bg-[#009688] p-2 rounded text-center -mt-12 ">News And Updates</Link>
+            <Link to={"/news-and-updates"} className="bg-[#009688] p-2 rounded text-center -mt-12 text-white ">News And Updates</Link>
           </div>
         </div>
       </div>
@@ -43,9 +46,7 @@ const Home = () => {
     <div className="mx-auto text-center md:max-w-xl lg:max-w-3xl">
       <h3 className="mb-6 text-3xl font-bold text-[#009688]">Reviews</h3>
       <p className="mb-6 pb-2 md:mb-12 md:pb-0">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
-        amet numquam iure provident voluptate esse quasi, veritatis totam
-        voluptas nostrum quisquam eum porro a pariatur veniam.
+        Some Reviews Of Our Top Users...
       </p>
     </div>
     {/*First Testimonial*/}
@@ -53,11 +54,11 @@ const Home = () => {
       <div>
         <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
           <div className="h-28 overflow-hidden rounded-t-lg bg-[#9d789b]" />
-          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
-            <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp" />
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full h-[6rem] border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img className='' src={img5} />
           </div>
           <div className="p-6">
-            <h4 className="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+            <h4 className="mb-4 text-2xl font-semibold">Muneeb Ahmad</h4>
             <hr />
             <p className="mt-4">
               <svg
@@ -68,8 +69,7 @@ const Home = () => {
               >
                 <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
               </svg>
-              Lorem ipsum dolor sit amet eos adipisci, consectetur adipisicing
-              elit.
+              As a student applying to different schools, this app was a game-changer. i realy like this App very much.
             </p>
           </div>
         </div>
@@ -78,11 +78,11 @@ const Home = () => {
       <div>
         <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
           <div className="h-28 overflow-hidden rounded-t-lg bg-[#7a81a8]" />
-          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
-            <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(2).webp" />
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full h-[6rem] border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img src={img4} />
           </div>
           <div className="p-6">
-            <h4 className="mb-4 text-2xl font-semibold">Lisa Cudrow</h4>
+            <h4 className="mb-4 text-2xl font-semibold">Ahmad</h4>
             <hr />
             <p className="mt-4">
               <svg
@@ -93,7 +93,7 @@ const Home = () => {
               >
                 <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
               </svg>
-              Neque cupiditate assumenda in maiores repudi mollitia architecto.
+              The app's communication was top-notch ! I always knew where I stood in the admission process.
             </p>
           </div>
         </div>
@@ -102,11 +102,11 @@ const Home = () => {
       <div>
         <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
           <div className="h-28 overflow-hidden rounded-t-lg bg-[#6d5b98]" />
-          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
-            <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp" />
+          <div className="mx-auto -mt-12 w-24 overflow-hidden rounded-full h-[6rem] border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+            <img src={img6} />
           </div>
           <div className="p-6">
-            <h4 className="mb-4 text-2xl font-semibold">John Smith</h4>
+            <h4 className="mb-4 text-2xl font-semibold">Ali</h4>
             <hr />
             <p className="mt-4">
               <svg
@@ -117,8 +117,7 @@ const Home = () => {
               >
                 <path d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
               </svg>
-              Delectus impedit saepe officiis ab aliquam repellat rem unde
-              ducimus.
+              I had a few queries while using the app, and I was blown away by the responsiveness of the support team.
             </p>
           </div>
         </div>
@@ -155,7 +154,7 @@ const Home = () => {
                 <div className="team-wrap">
                     <div className="team-member text-center">
                         <div className="team-img">
-                            <img src={img2} alt=""/>
+                        <img class="w-full h-[17.8rem] object-cover rounded-md" src={img2} alt="/"/>
                             <div className="overlay">
                                 <div className="team-details text-center">
                                     <p>A Full Stack Developer And Also Founer Of this App</p>

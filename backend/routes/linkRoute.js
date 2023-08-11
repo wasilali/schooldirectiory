@@ -10,7 +10,7 @@ const { isAuthenticatedUser } = require("../meddleware/auth");
 const router = express.Router();
 
 router.route("/createlink").post(isAuthenticatedUser, createLink);
-router.route("/getlinks").get(isAuthenticatedUser, getLinks);
+router.route("/getlinks").get(getLinks);
 router.route("/updatelink/:id").put(isAuthenticatedUser, updateLink);
 router.route("/deletelink/:id").delete(isAuthenticatedUser, deleteLink);
 router.route("/getsinglelink/:id").get(isAuthenticatedUser, getsingleLink);

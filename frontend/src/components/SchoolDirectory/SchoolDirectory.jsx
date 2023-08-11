@@ -4,21 +4,36 @@ import img from '../../image/addmission ads for school (1).png'
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, getProduct } from "../../actions/productAction";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../component/layout/loading/Loader";
+import { Link, useParams } from "react-router-dom";
 const SchoolDirectory = () => {
-  const arry = [1, 3, 4, 5, 6, 7, 8, 9, 1];
+  const params=useParams()
   const alert=useAlert()
   const dispatch=useDispatch()
   const {loading,error,products}=useSelector(state=>state.products)
-  console.log("products",products);
+  // console.log("fdiis",params.id);
+  const keyword=params.keyword
   useEffect(() => {
     if(error){
     alert.error(error)
       dispatch(clearErrors())
     }
-   dispatch(getProduct())
-  }, [dispatch,error,alert])
+   dispatch(getProduct(keyword))
+  }, [dispatch,error,alert,keyword])
+
+  const [keywords,setKeyword]=useState("")
+  const searchSubmitHandler=(e)=>{
+      e.preventDefault();
+      //trim is for deceted space in scearchbar
+      console.log('keywords',keywords);
+      if(keywords.trim()){
+       window.location.replace(`/school-directory/${keywords}`)
+      }else{
+       window.location.replace(`/school-directory`)
+        
+      }
+  }
 
   return (
     <>
@@ -34,8 +49,8 @@ const SchoolDirectory = () => {
         <p className="text-[1.2rem] text-[white] font-[100] my-5">
           Find the perfect school for your child
         </p>
-        <input className="form-control mb-5" type="text" placeholder="Search" />
-        <button className="bg-[#009688]  text-white hover:bg-[#4d847e]">
+        <input onChange={e=>setKeyword(e.target.value)} value={keywords} className="form-control mb-5" type="text" placeholder="Search" />
+        <button onClick={searchSubmitHandler} className="bg-[#009688]  text-white hover:bg-[#4d847e]">
           Search
         </button>
       </div>
@@ -57,9 +72,9 @@ const SchoolDirectory = () => {
             <img src={img} alt="Poster Image"/>
           </div>
           <div className="poster-content">
-            <h2 className="poster-title text-[#009688x]">Movie Title</h2>
-            <p className="poster-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" className="poster-button">Watch Trailer</a>
+            <h2 className="poster-title text-[#009688x]">well Come sir</h2>
+            <p className="poster-description">Please login First for chack it all</p>
+            <Link to="/login" className="poster-button">Login</Link>
           </div>
         </div>
             

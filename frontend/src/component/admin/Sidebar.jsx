@@ -49,10 +49,10 @@ const Sidebar = () => {
               News
               </p>
             </Link>
-      <Link to="/admin/users">
+      <Link to="/admin/news">
         <p>
           <NewspaperIcon />
-          News
+          News List
         </p>
       </Link> 
      {user&&user.allowUser&&user.allowUser===true&& <Link to="/admin/create/videos">

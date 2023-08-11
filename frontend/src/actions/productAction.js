@@ -34,39 +34,40 @@ import {
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
-export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: ALL_PRODUCT_REQUEST,
-      });
-      //ya neacha wali line ma prdoucts thk ya sari products laya ha  usk aga ?keyword=${keyword} sa wo relative name ki products dundh k laya ga
-      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
-
-      if (category) {
-        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
-      }
-      const { data } = await axios.get(link);
-      dispatch({
-        type: ALL_PRODUCT_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: ALL_PRODUCT_FAIL,
-        payload: error.response.data.message,
-      });
+export const getProduct = (location) => async (dispatch) => {
+  try {
+    dispatch({
+      type: ALL_PRODUCT_REQUEST,
+    });
+    //ya neacha wali line ma prdoucts thk ya sari products laya ha  usk aga ?keyword=${keyword} sa wo relative name ki products dundh k laya ga
+    let link;
+    if (location) {
+      link = `/api/v1/products?keyword=${location}`;
+    } else {
+      link = `/api/v1/products`;
     }
-  };
+
+    const { data } = await axios.get(link);
+    dispatch({
+      type: ALL_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 //get product details
 export const getProductDetails = (id) => async (dispatch) => {
-  console.log(id, "ididid");
+  console.log();
   try {
     dispatch({
       type: PRODUCT_DETAILS_REQUEST,
     });
     const { data } = await axios.get(`/api/v1/product/${id}`);
+    console.log(data, "data", id);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
