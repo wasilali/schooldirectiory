@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import MetData from "../layout/MetData";
 import { clearErrors, createNews } from "../../actions/newsAction";
 import Sidebar from "./Sidebar";
-import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Loading from "../layout/loading/Loader";
 const NewNews = () => {
@@ -36,7 +35,7 @@ const NewNews = () => {
     if (success) {
       alert.success("Product Created Successfully");
       nav("/admin/dashboard");
-      dispatch({ type: NEW_PRODUCT_RESET });
+      dispatch({ type: "NEW_PRODUCT_RESET" });
     }
   }, [dispatch, alert, error, success]);
 

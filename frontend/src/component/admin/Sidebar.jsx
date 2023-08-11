@@ -37,10 +37,10 @@ const Sidebar = () => {
           <PeopleIcon /> Users
         </p>
       </Link>}
-      <Link to="/admin/users">
+      <Link to="/admin/news">
         <p>
           <ListAltIcon />
-          News-Update List
+          News-Eents List
         </p>
       </Link>
       <Link to="/admin/create/news">
@@ -61,7 +61,7 @@ const Sidebar = () => {
               Add-video
               </p>
             </Link>}
-    {user&&user.allowUser&&user.allowUser===true&& <Link to="/admin/users">
+    { <Link to="/admin/videos">
         <p>
           <YouTubeIcon />
           list videos

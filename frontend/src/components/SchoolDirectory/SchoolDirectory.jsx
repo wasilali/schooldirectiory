@@ -47,7 +47,7 @@ const SchoolDirectory = () => {
 
       <div className="px-5 xl:px-12 flex justify-center flex-wrap gap-4">
 {products&&products.map((items) => (
-  <SchoolCard items={items} />
+  <SchoolCard items={items} key={items._id} />
 ))}
 </div>
     </div>

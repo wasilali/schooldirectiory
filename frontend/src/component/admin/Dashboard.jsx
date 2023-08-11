@@ -9,15 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrder } from '../../actions/orderAction';
 import { getAllUsers } from '../../actions/userAction';
 import { getAllReport } from '../../actions/reportAction';
+import { getAllNews } from '../../actions/newsAction';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const {products}=useSelector(state=>state.products);
-
-  const {orders}=useSelector(st=>st.allOrders);
-
   const { error, users } = useSelector((state) => state.allUsers);
-  const { reports } = useSelector((state) => state.report);
+  const { allLinks } = useSelector((state) => state.report);
+  const { news } = useSelector((state) => state.news);
 
+console.log("news",news);
 
   useEffect(() => {
     dispatch(getAdminProduct());
@@ -26,47 +26,10 @@ const Dashboard = () => {
     dispatch(getAllOrder())
 
     dispatch(getAllUsers());
+    dispatch(getAllNews());
+
   }, [dispatch]);
 
-  let outOfStock=0;
-
-  products&&
-  products.forEach(items=>{
-    if (items.stock===0){
-      outOfStock +=1
-    }
-  })
-
-  let totalAmount = 0;
-  orders &&
-    orders.forEach((item) => {
-      totalAmount += item.totalPrice;
-    });
-
-
-
-  const lineState = {
-    labels: ["Initial Amount", "Amount Earned"],
-    datasets: [
-      {
-        label: "TOTAL AMOUNT",
-        backgroundColor: ["tomato"],
-        hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, totalAmount],
-      },
-    ],
-  };
-
-  const doughnutState = {
-    labels: ["Out of Stock", "InStock"],
-    datasets: [
-      {
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [outOfStock, products.length-outOfStock],
-      },
-    ],
-  };
 
 
   return (
@@ -87,14 +50,14 @@ const Dashboard = () => {
 
       {/* News */}
       <div className="bg-yellow-500 h-[10rem] p-4 text-white text-center">
-        <h2 className="text-xl font-bold">Number of News</h2>
-        <p className="text-4xl mt-5">{0 || 'Loading...'}</p>
+        <h2 className="text-xl font-bold">Number of News And Events</h2>
+        <p className="text-4xl mt-5">{news&&news.length || 'Loading...'}</p>
       </div>
 
       {/* Videos */}
       <div className="bg-red-500 h-[10rem] p-4 text-white text-center">
         <h2 className="text-xl font-bold">Number of Videos</h2>
-        <p className="text-4xl mt-5">{0 || 'Loading...'}</p>
+        <p className="text-4xl mt-5">{allLinks&&allLinks.length || 'Loading...'}</p>
       </div>
     </div>
     </div>

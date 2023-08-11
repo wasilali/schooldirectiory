@@ -15,20 +15,20 @@ import { clearErrors, newProduct } from "../../actions/productAction";
 import Sidebar from "./Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import { createReport } from "../../actions/reportAction";
+import { CREATE_REPORT_RESET } from "../../constants/reportConstant";
+import Loading from "../layout/loading/Loader";
 const NewVideos = () => {
   const dispatch = useDispatch();
   const nav = useNavigate()
   const alert = useAlert();
 
-  const { loading, error, success } = useSelector((state) => state.newProduct);
+  const { loading, error, message } = useSelector((state) => state.report);
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [Stock, setStock] = useState(0);
-  const [images, setImages] = useState([]);
-  const [imagesPreview, setImagesPreview] = useState([]);
+  const [link, setLink] = useState("");
+  const [videoId, setVideoId] = useState("");
+  const [classes, setClasses] = useState("");
 
   useEffect(() => {
     if (error) {
@@ -36,12 +36,12 @@ const NewVideos = () => {
       dispatch(clearErrors());
     }
 
-    if (success) {
-      alert.success("Product Created Successfully");
+    if (message) {
+      alert.success("Video Link Created Successfully");
       nav("/admin/dashboard");
-      dispatch({ type: NEW_PRODUCT_RESET });
+      dispatch({ type: CREATE_REPORT_RESET });
     }
-  }, [dispatch, alert, error, success]);
+  }, [dispatch, alert, error, message]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -49,39 +49,29 @@ const NewVideos = () => {
     const myForm = new FormData();
 
     myForm.set("name", name);
-    myForm.set("price", price);
-    myForm.set("discription", description);
-    myForm.set("category", category);
-    myForm.set("stock", Stock);
-
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
-    dispatch(newProduct(myForm));
+    myForm.set("link", link);
+    myForm.set("classes", classes);
+    dispatch(createReport(myForm));
+    nav("/admin/dashboard");
+    alert.success("Video Link Created Successfully");
   };
 
-  const createProductImagesChange = (e) => {
-    const files = Array.from(e.target.files);
+  const handleLinkChange = (event) => {
+    const inputValue = event.target.value;
+    setVideoId(inputValue);
 
-    setImages([]);
-    setImagesPreview([]);
-
-    files.forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((old) => [...old, reader.result]);
-          setImages((old) => [...old, reader.result]);
-        }
-      };
-
-      reader.readAsDataURL(file);
-    });
+    // Extract video ID using regex
+    const match = inputValue.match(/(?:\?|&)v=([^&]+)/);
+    if (match) {
+      setLink(match[1]);
+    } else {
+      setLink(""); // Clear video ID if URL format is not recognized
+    }
   };
-
   return (
-    <Fragment>
+    <>
+    {
+      loading?<Loading/>:<Fragment>
       <MetData title="Create Product" />
       <div className="dashboard">
         <Sidebar/>
@@ -99,8 +89,28 @@ const NewVideos = () => {
                 type="text"
                 placeholder="Add video link"
                 required
+                value={videoId}
+                onChange={handleLinkChange}
+              />
+            </div>
+            <div>
+              <YouTubeIcon />
+              <input
+                type="text"
+                placeholder="Add video name"
+                required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div>
+              <YouTubeIcon />
+              <input
+                type="number"
+                placeholder="Add video class Number"
+                required
+                value={classes}
+                onChange={(e) => setClasses(e.target.value)}
               />
             </div>
 
@@ -115,6 +125,9 @@ const NewVideos = () => {
         </div>
       </div>
     </Fragment>
+    }
+    </>
+    
   );
 };
 

@@ -26,7 +26,11 @@ import {
   orderReducer,
 } from "./reducers/orderReducer";
 import { deleteReportReducer, reportReducer } from "./reducers/reportReducer";
-import { newsCreateReducer } from "./reducers/newsReducer";
+import {
+  deleteNewsReducer,
+  newsCreateReducer,
+  newsReducer,
+} from "./reducers/newsReducer";
 
 const reducer = combineReducers({
   products: productsReducer,
@@ -51,6 +55,8 @@ const reducer = combineReducers({
   report: reportReducer,
   deleteReport: deleteReportReducer,
   newNews: newsCreateReducer,
+  news: newsReducer,
+  deleteNews: deleteNewsReducer,
 });
 let initialState = {
   cart: {

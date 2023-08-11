@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +26,10 @@ const nav = useNavigate()
   const {error,products}=useSelector(state=>state.products)
 
 
+  const {user,isAuthenticated}=useSelector(sta=>sta.user)
+
+  const [allLink,setAllLinks]=useState(null)
+
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.product
   );
@@ -42,13 +46,17 @@ const nav = useNavigate()
 
 
     dispatch(getAdminProduct());
+    if (products && user) {
+      const filteredLinks = products.filter(link => link.user === user._id);
+      setAllLinks(filteredLinks);
+    }
     if (deleteError) {
       alert.error(deleteError);
       dispatch(clearErrors());
     }
 
     if (isDeleted) {
-      alert.success("Product Deleted Successfully");
+      alert.success("School Deleted Successfully");
       nav("/admin/dashboard");
 
       dispatch({ type: DELETE_PRODUCT_RESET });
@@ -108,8 +116,8 @@ const nav = useNavigate()
   ];
 
   const rows = [];
-
-  products &&
+  if (user&&user.allowUser===true) {
+    products &&
     products.forEach((item) => {
       rows.push({
         id: item._id,
@@ -118,6 +126,18 @@ const nav = useNavigate()
         name: item.name,
       });
     });
+
+  }else{
+    allLink &&
+    allLink.forEach((item) => {
+      rows.push({
+        id: item._id,
+        contact: item.contact,
+        location: item.location,
+        name: item.name,
+      });
+    });
+  }
 
   return (
     <>

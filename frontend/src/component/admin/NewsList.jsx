@@ -3,41 +3,38 @@ import { DataGrid } from "@material-ui/data-grid";
 import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MetData from "../layout/MetData";
 import Sidebar from "./Sidebar";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
 import { getAllReport,clearErrors, deleteReport } from "../../actions/reportAction";
 import { DELETE_REPORT_RESET } from "../../constants/reportConstant";
+import { deleteNews, getAllNews } from "../../actions/newsAction";
 
 
-const Reports = () => {
+const NewsList = () => {
   const dispatch = useDispatch();
 const nav = useNavigate()
   const alert = useAlert();
 
 
-  const {error,loading,allLinks}=useSelector(st=>st.report)
+  const {error,news}=useSelector(st=>st.news)
+  const {error:deleteError ,message} = useSelector(st=>st.deleteNews)
   const {user,isAuthenticated}=useSelector(sta=>sta.user)
-
   const [allLink,setAllLinks]=useState(null)
 
-  const {error:deleteError ,message} = useSelector(st=>st.deleteReport)
-
-
   const deleteOrderHandler = (id) => {
-    console.log("iddddddd",id);
-    dispatch(deleteReport(id));
+    console.log("id",id);
+    dispatch(deleteNews(id));
   };
 
   useEffect(() => {
 
-dispatch(getAllReport())
-      if (error) {
+dispatch(getAllNews())
+    if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
@@ -46,41 +43,57 @@ dispatch(getAllReport())
       alert.error(deleteError);
       dispatch(clearErrors());
     }
-    if (allLinks && user) {
-      const filteredLinks = allLinks.filter(link => link.user === user._id);
+    if (news && user) {
+      const filteredLinks = news.filter(link => link.user === user._id);
       setAllLinks(filteredLinks);
     }
     if (message) {
       alert.success(message);
 
-      dispatch({ type: DELETE_REPORT_RESET });
+      dispatch({ type: "DELETE_NEWS_RESET" });
     }
 
-  }, [dispatch,alert,error,deleteError,message]);
-
-
+  }, [dispatch,deleteError,message]);
 
   const columns = [
     {
-        field: "link",
-        headerName: "link",
+        field: "name",
+        headerName: "name",
         type: "text",
         minWidth: 150,
         flex:0,
       },
       {
-        field: "name",
-        headerName: "name",
-        type: "text",
+        field: "from",
+        headerName: "from",
+        type: "date",
         minWidth: 150,
         flex: 0.2,
+        valueFormatter: (params) => {
+            const date = new Date(params.value);
+            return date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+          },
+        cellClassName: (params) => {
+            return "redColor";
+          },
+      },
+      {
+        field: "to",
+        headerName: "to",
+        type: "date",
+        minWidth: 150,
+        flex: 0.2,
+        valueFormatter: (params) => {
+            const date = new Date(params.value);
+            return date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+          },
         cellClassName: (params) => {
             return "redColor";
           },
       },
     {
-      field: "classes",
-      headerName: "Classes",
+      field: "Discription",
+      headerName: "Description",
       minWidth: 100,
       flex: .8,
       cellClassName: (params) => {
@@ -116,23 +129,25 @@ dispatch(getAllReport())
 
   const rows = [];
 if (user&&user.allowUser===true) {
-  allLinks &&
-  allLinks.forEach((item) => {
+  news&&news &&
+  news&&news.forEach((item) => {
       rows.push({
         id:item._id,
-        link: item.link,
         name: item.name,
-        classes: item.classes,
+        from: item.from,
+        to: item.to,
+        Discription: item.description,
       });
     });
 }else{
-  allLink &&
-  allLink.forEach((item) => {
+  allLink&&allLink &&
+  allLink&&allLink.forEach((item) => {
       rows.push({
         id:item._id,
-        link: item.link,
         name: item.name,
-        classes: item.classes,
+        from: item.from,
+        to: item.to,
+        Discription: item.description,
       });
     });
 }
@@ -145,7 +160,7 @@ if (user&&user.allowUser===true) {
       <div className="dashboard">
         <Sidebar/>
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL Videos</h1>
+          <h1 id="productListHeading">ALL PRODUCTS</h1>
 
           <DataGrid
             rows={rows}
@@ -161,4 +176,4 @@ if (user&&user.allowUser===true) {
   );
 };
 
-export default Reports;
+export default NewsList;

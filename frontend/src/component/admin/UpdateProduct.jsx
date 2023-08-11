@@ -13,9 +13,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import MetData from "../layout/MetData";
 import { clearErrors,getProductDetails, updateProduct } from "../../actions/productAction";
 import Sidebar from "./Sidebar";
+import EmailIcon from '@mui/icons-material/Email';
 import { UPDATE_PRODUCT_RESET } from "../../constants/productConstants";
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import ContactsIcon from '@mui/icons-material/Contacts';
+import Loading from "../../components/Headers/Loading"
 const UpdateProduct = () => {
   const dispatch = useDispatch();
   const params=useParams();
@@ -26,12 +28,15 @@ const UpdateProduct = () => {
   const {product,error}=useSelector(state=>state.productDetails)
 
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState("");
   const [images, setImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+
+  console.log("productsss",product);
 const id=params.id
   useEffect(() => {
     if (product&&product._id !==id) {
@@ -41,6 +46,8 @@ const id=params.id
       setDescription(product.discription);
       setContact(product.contact);
       setLocation(product.location);
+      setDescription(product.discription);
+      setEmail(product.email);
       setOldImages(product.images);
     }
     if (error) {
@@ -73,6 +80,7 @@ const id=params.id
     const myForm = new FormData();
 
     myForm.set("name", name);
+    myForm.set("email", email);
     myForm.set("contact", contact);
     myForm.set("discription", description);
     myForm.set("location", location);
@@ -105,10 +113,12 @@ const id=params.id
   };
 
   return (
-    <Fragment>
+    <>
+    {
+      loading?<Loading/>:<Fragment>
       <MetData title="Create Product" />
       <div className="dashboard">
-        <Sidebar/>
+        <Sidebar />
         <div className="newProductContainer">
           <form
             className="createProductForm"
@@ -125,6 +135,16 @@ const id=params.id
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div>
+              <EmailIcon />
+              <input
+                type="email"
+                placeholder="School Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -146,6 +166,7 @@ const id=params.id
                 type="text"
                 placeholder="School Contact"
                 required
+                value={contact}
                 onChange={(e) => setContact(e.target.value)}
               />
             </div>
@@ -155,6 +176,7 @@ const id=params.id
                 type="text"
                 placeholder="School Location"
                 required
+                value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
             </div>
@@ -192,6 +214,9 @@ const id=params.id
         </div>
       </div>
     </Fragment>
+    }
+    </>
+
   );
 };
 

@@ -29,6 +29,8 @@ import UsersList from "./component/admin/UsersList";
 import UpdateUserRole from "./component/admin/UpdateUserRole";
 import NewNews from "./component/admin/NewNews.jsx";
 import NewVideos from "./component/admin/NewVideos.jsx";
+import NewsList from "./component/admin/NewsList.jsx";
+import Reports from "./component/admin/Reports";
 const App = () => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -72,7 +74,9 @@ const App = () => {
                 <Route path="/admin/create/videos" element={<NewVideos/>}></Route>
                 <Route path="/admin/dashboard" element={<Dashboard />}></Route>
                 <Route path="/admin/products" element={<ProductList />}></Route>
+                <Route path="/admin/news" element={<NewsList />}></Route>
                 <Route path="/admin/product" element={<NewProduct />}></Route>
+                <Route path="/admin/videos" element={<Reports />}></Route>
                 <Route
                   path="/admin/product/:id"
                   element={<UpdateProduct />}

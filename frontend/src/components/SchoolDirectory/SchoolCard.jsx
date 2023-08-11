@@ -7,13 +7,18 @@ import IconButton from '@mui/material/IconButton';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SchoolDetailsDialog from './SchoolDetailsDialog.jsx';
-const SchoolCard = ({items}) => {
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetails } from "../../actions/productAction";
+const SchoolCard = ({items,key}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [idd, setIdd] = useState();
+  const {product,loading,error}=useSelector(state=>state.productDetails)
 
+  const [idd, setIdd] = useState();
+  const dispatch=useDispatch()
   const handleOpenDialog = () => {
     setDialogOpen(true);
-    setIdd(items._id)
+ dispatch(getProductDetails(items._id));
+
 
   };
 
@@ -23,7 +28,7 @@ const SchoolCard = ({items}) => {
   const [value, setValue] = useState(items.ratings);
   return (
     <>
-      <div className="image-cardd">
+      <div className="image-cardd" key={key}>
         <div className="image-containerr">
           <img src={items.images&&items.images[0].url} alt="Image" />
           <span className="view-icon">
@@ -46,7 +51,7 @@ const SchoolCard = ({items}) => {
 
             </div>
             <IconButton onClick={handleOpenDialog} color="info"><LaunchIcon/></IconButton>
-            <SchoolDetailsDialog items={items} idd={items._id} open={dialogOpen} onClose={handleCloseDialog} />
+            <SchoolDetailsDialog loading={loading} product={product} items={items} key={items._id} idd={idd} open={dialogOpen} onClose={handleCloseDialog} />
           </div>
         </div>
       </div>

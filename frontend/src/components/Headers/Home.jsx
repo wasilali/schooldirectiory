@@ -1,7 +1,7 @@
-import img1 from '../../image/image (4).jpg'
-import img2 from '../../image/image (1).jpg'
+import img1 from '../../image/99708938.jpg'
+import img2 from '../../image/sharAli.jpeg'
 import img3 from '../../image/image (2).jpg'
-
+import {Link} from "react-router-dom"
 const Home = () => {
   return (
     <>
@@ -17,23 +17,27 @@ const Home = () => {
 
          <section className="bg-gray-100 pb-8 pt-0 h-auto w-full">
       <div className="container mx-auto md:px-12 px-4 py-16 ">
-        <h2 className="text-center text-4xl font-bold mb-[5rem] mt-[5rem] text-[#009688]">Our Services</h2>
+        <h2 className="text-center text-4xl font-bold mb-[5rem] mt-[5rem] text-[#009688]">Our School Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="icon-card bg-hero-pattern bg-cover bg-no-repeat bg-center z-10 h-[60vh] service-card bg-white rounded-md shadow-md p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052]">Home</h3>
-            <p className="text-gray-900 text-center -mt-12 ">Explore our cozy and welcoming homes.</p>
+            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052]">School Directory</h3>
+            <p className="text-gray-900 text-center -mt-12 ">You can find amaizing Schools hare</p>
+            <Link to={"/school-directory"} className="bg-[#009688] p-2 rounded text-center -mt-12 ">watch schools</Link>
+
           </div>
           <div className="icon-card bg-hero-pattern bg-cover bg-no-repeat bg-center h-[60vh] z-10 service-card bg-white rounded-md shadow-md p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052] ">Library</h3>
-            <p className=" text-center -mt-12">Discover a vast collection of books.</p>
+            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052] ">Education Resource</h3>
+            <p className=" text-center -mt-12">Find amaizing Education Videos</p>
+            <Link to={"/educational-resources"} className="bg-[#009688] p-2 rounded text-center -mt-12 ">watch Videos</Link>
           </div>
           <div className="icon-card bg-hero-pattern bg-cover bg-no-repeat bg-center h-[60vh] z-10 service-card bg-white rounded-md shadow-md p-6 flex flex-col items-center">
-            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052] ">Community</h3>
-            <p className=" text-center -mt-12">Connect and engage with our vibrant community.</p>
+            <h3 className="text-xl font-semibold mt-[3rem] text-[#002052] ">News and Events</h3>
+            <p className=" text-center -mt-12">Find News Of Famous Schools</p>
+            <Link to={"/news-and-updates"} className="bg-[#009688] p-2 rounded text-center -mt-12 ">News And Updates</Link>
           </div>
         </div>
       </div>
-    </section>   
+    </section>
 
     <section className="bg-gray-100 text-neutral-700 dark:text-neutral-300 h-auto py-16 md:px-12 px-4">
     <div className="mx-auto text-center md:max-w-xl lg:max-w-3xl">
@@ -135,7 +139,7 @@ const Home = () => {
                             <img src={img1} alt=""/>
                             <div className="overlay">
                                 <div className="team-details text-center">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam incidunt vel dolorum, veniam repellat perf</p>
+                                    <p>A Full Stack Developer And Also Founer Of this App</p>
                                     <div className="socials mt-20">
                                         <a href="#"><span className="fa fa-facebook"></span></a>
                                         <a href="#"><span className="fa fa-twitter"></span></a>
@@ -145,8 +149,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        <h6 className="team-title">Arslan</h6>
-                        <span>designer</span>
+                        <h6 className="team-title">Muhammad Wasil</h6>
                     </div>
                 </div>
                 <div className="team-wrap">
@@ -155,7 +158,7 @@ const Home = () => {
                             <img src={img2} alt=""/>
                             <div className="overlay">
                                 <div className="team-details text-center">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam incidunt vel dolorum, veniam repellat perf</p>
+                                    <p>A Full Stack Developer And Also Founer Of this App</p>
                                     <div className="socials mt-20">
                                         <a href="#"><span className="fa fa-facebook"></span></a>
                                         <a href="#"><span className="fa fa-twitter"></span></a>
@@ -165,8 +168,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        <h6 className="team-title">Arslan</h6>
-                        <span>designer</span>
+                        <h6 className="team-title">Muhammad Shar Ali</h6>
                     </div>
                 </div>
     
@@ -176,7 +178,7 @@ const Home = () => {
                             <img src={img3} alt=""/>
                             <div className="overlay">
                                 <div className="team-details text-center">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam incidunt vel dolorum, veniam repellat perf</p>
+                                    <p>A Full Stack Developer And Also Founer Of this App</p>
                                     <div className="socials mt-20">
                                         <a href="#"><span className="fa fa-facebook"></span></a>
                                         <a href="#"><span className="fa fa-twitter"></span></a>
@@ -186,8 +188,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        <h6 className="team-title">Arslan</h6>
-                        <span>designer</span>
+                        <h6 className="team-title">Muhammad Arslan</h6>
                     </div>
                 </div>
               </div>

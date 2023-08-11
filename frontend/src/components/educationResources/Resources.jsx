@@ -5,6 +5,9 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Videos from './Videos';
+import Loading from "../Headers/Loading"
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllReport } from '../../actions/reportAction';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,6 +43,30 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
+  const dispatch=useDispatch()
+  const {error,loading,allLinks}=useSelector(st=>st.report)
+
+  const [class1,setClass1]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==1)))
+  const [class2,setClass2]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==2)))
+  const [class3,setClass3]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==3)))
+  const [class4,setClass4]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==4)))
+  const [class5,setClass5]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==5)))
+  const [class6,setClass6]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==6)))
+  const [class7,setClass7]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==7)))
+  const [class8,setClass8]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==8)))
+  const [class9,setClass9]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==9)))
+  const [class10,setClass10]=React.useState(allLinks&&allLinks.filter((ele=>ele.classes==10)))
+
+
+  React.useEffect(() => {
+
+    dispatch(getAllReport())
+
+
+    
+      }, [dispatch]);
+
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -48,6 +75,8 @@ export default function VerticalTabs() {
 
   return (
     <>
+    {
+      loading?<Loading/>:<>
 
       <h1 className=" text-center text-primary md:text-[2rem] text-[2rem] font-bold py-2">
           {"Resourcess for class 1"}
@@ -74,37 +103,40 @@ export default function VerticalTabs() {
         <Tab label="Class Ten" {...a11yProps(9)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Videos/>
+        <Videos allLinks={class1&&class1} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Class Two
+        <Videos allLinks={class2&&class2} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Class Three
+        <Videos allLinks={class3&&class3} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Class Four
+        <Videos allLinks={class4&&class4} />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        Class Five
+        <Videos allLinks={class5&&class5} />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Class Six
+        <Videos allLinks={class6&&class6} />
       </TabPanel>
       <TabPanel value={value} index={6}>
-        Class Seven
+        <Videos allLinks={class7&&class7} />
       </TabPanel>
-      <TabPanel value={value} index={6}>
-        Class Eight
+      <TabPanel value={value} index={7}>
+        <Videos allLinks={class8&&class8} />
       </TabPanel>
-      <TabPanel value={value} index={6}>
-        Class Nine
+      <TabPanel value={value} index={8}>
+        <Videos allLinks={class9&&class9} />
       </TabPanel>
-      <TabPanel value={value} index={6}>
-        Class Ten
+      <TabPanel value={value} index={9}>
+        <Videos allLinks={class10&&class10} />
       </TabPanel>
     </Box>
 
     </>
+    }
+    </>
+
   );
 }

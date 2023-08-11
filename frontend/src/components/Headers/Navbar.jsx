@@ -49,7 +49,7 @@ const Navbar = () => {
                   <li><Link to={"/"} className="a">Home</Link></li>
                   <li><Link to="/school-directory" className="a">School Directory</Link></li>
                   <li><Link to={"/educational-resources"} className="a">Educational Resources</Link></li>
-                  <li><Link to={"/news-and-updates"} className="a">News and Update</Link></li>
+                  <li><Link to={"/news-and-updates"} className="a">News and Events</Link></li>
                   <li><Link to={"/contact"} className="a">Contact Us</Link></li>
                   {!isAuthenticated && <li><Link to={"/login"} className="button text-secondary">Sign In</Link></li>}
                 </ul>
@@ -110,7 +110,7 @@ const Navbar = () => {
                     <li className='mt-[.5rem]'><Link to={"/"} className="a text-white">Home</Link></li>
                     <li className='mt-[.5rem]'><Link to={"/school-directory"} className="a text-white">School Directory</Link></li>
                     <li className='mt-[.5rem]'><Link to={"/educational-resources"} className="a text-white">Educational Resources</Link></li>
-                    <li className='mt-[.5rem]'><Link to={"/news-and-updates"} className="a text-white">News and Update</Link></li>
+                    <li className='mt-[.5rem]'><Link to={"/news-and-updates"} className="a text-white">News and Events</Link></li>
                     <li className='mt-[.5rem]'><Link to={"/contact"} className="a text-white">Contact Us</Link></li>
                     <li className='mt-[1rem] mb-6'><Link to={"/login"} className="button cursor-pointer">Sign In</Link></li>
                   </ul>}
