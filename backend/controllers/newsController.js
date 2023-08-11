@@ -2,8 +2,10 @@ const News = require("../models/newsModel");
 const ErrorHandling = require("../utils/errorHandling");
 const catchAsyncError = require("../meddleware/catchAsyncError");
 const ApiFeatures = require("../utils/apiFeachers");
+const cloudinary = require("cloudinary");
 
 exports.createNew = catchAsyncError(async (req, res, next) => {
+  console.log("cla ha");
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
     folder: "avatars",
     width: 150,
@@ -11,12 +13,13 @@ exports.createNew = catchAsyncError(async (req, res, next) => {
   });
 
   const { name, description, from, to } = req.body;
-  req.body.user = req.user.id;
+
   const news = await News.create({
     name,
     description,
     from,
     to,
+    user: req.user.id,
     avatar: {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
@@ -58,14 +61,31 @@ exports.updateData = catchAsyncError(async (req, res, next) => {
 //delete the news
 
 exports.deleteData = catchAsyncError(async (req, res, next) => {
-  const news = await News.findByIdAndDelete(req.params.id);
-  if (!news) {
-    return next(new ErrorHandling("news Not found", 404));
+  const user = await News.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandling(`News dost exist on this id: ${req.params.id}`)
+    );
   }
+
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
+
+  await user.remove();
+  // const news = await News.findByIdAndDelete(req.params.id);
+  // if (!news) {
+  //   return next(new ErrorHandling("news Not found", 404));
+  // }
+
+  // const imageId = news.avatar.public_id;
+
+  // await cloudinary.v2.uploader.destroy(imageId);
 
   res.status(200).json({
     success: true,
-    message: "news deleted",
+    message: "news deleted Successfully",
   });
 });
 

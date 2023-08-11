@@ -25,10 +25,12 @@ app.use(fileUploader());
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const news = require("./routes/newsRoute");
+const link = require("./routes/linkRoute");
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", news);
+app.use("/api/v1", link);
 
 //for live our side
 app.use(express.static(path.join(__dirname, "../frontend/build")));
